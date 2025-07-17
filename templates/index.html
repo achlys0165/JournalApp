@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wellness Journal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    font-family: 'Nunito', sans-serif;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.8rem;
+    margin-bottom: 0.25em;
+    color: #334e68;
+    text-shadow: 1px 1px 4px rgba(255 255 255 / 0.6);
+  }
+
+  /* Container */
+  .container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    max-width: 700px;
+    width: 100%;
+    padding: 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Feedback */
+  .feedback {
+    background: #d1e7dd;
+    color: #0f5132;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.15rem;
+    box-shadow: inset 0 0 10px #a3cfbb;
+  }
+
+  /* Entries */
+  .entries {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+
+  .entry {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    background: #f8fafb;
+    margin-bottom: 1rem;
+    box-shadow:
+      0 2px 5px rgba(0,0,0,0.04),
+      0 0 10px rgba(100,100,100,0.02);
+    transition: transform 0.2s ease;
+  }
+  .entry:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 6px 12px rgba(0,0,0,0.12),
+      0 0 20px rgba(100,100,100,0.05);
+  }
+
+  .timestamp {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #718096;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.03em;
+  }
+
+  .content {
+    font-size: 1.1rem;
+    line-height: 1.45;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    white-space: pre-wrap;
+  }
+
+  .mood {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    color: white;
+    background: #63b3ed; /* Default blue */
+  }
+  .mood.happy {
+    background: #38a169; /* Green */
+  }
+  .mood.neutral {
+    background: #718096; /* Gray */
+  }
+  .mood.sad {
+    background: #e53e3e; /* Red */
+  }
+
+  /* Add entry form */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #334e68;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 2px solid #cbd5e0;
+    border-radius: 12px;
+    transition: border-color 0.3s ease;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+  }
+  textarea:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 8px #63b3ed;
+  }
+
+  select {
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 2px solid #cbd5e0;
+    font-family: 'Nunito', sans-serif;
+    transition: border-color 0.3s ease;
+  }
+  select:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 8px #63b3ed;
+  }
+
+  button {
+    align-self: flex-start;
+    background: #3182ce;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(49,130,206,0.5);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  button:hover {
+    background: #2b6cb0;
+    box-shadow: 0 8px 20px rgba(43,108,176,0.7);
+  }
+
+  /* Scrollbar for entries */
+  .entries::-webkit-scrollbar {
+    width: 8px;
+  }
+  .entries::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 12px;
+  }
+  .entries::-webkit-scrollbar-thumb {
+    background: #a0aec0;
+    border-radius: 12px;
+  }
+
+  .feedback-box {
+    background-color: #eafaf1;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.feedback-box h3 {
+    margin-top: 0;
+    color: #3a8b5b;
+}
+
+</style>
+</head>
+<body>
+  <h1>Wellness Journal</h1>
+  <div class="container">
+    {% if feedback %}
+      <div class="feedback-box">
+          <h3>📝 Feedback for Today</h3>
+          <p>{{ feedback }}</p>
+      </div>
+      {% endif %}
+
+    <section class="entries" aria-label="Journal entries">
+      {% if entries %}
+        {% for timestamp, entry in entries %}
+          <article class="entry" tabindex="0">
+            <time class="timestamp">{{ timestamp }}</time>
+            <p class="content">{{ entry[0] | e }}</p>
+            <span class="mood {{ entry[1] }}">{{ entry[1] | capitalize }}</span>
+          </article>
+        {% endfor %}
+      {% else %}
+        <p>No entries yet.</p>
+      {% endif %}
+    </section>
+
+    <section class="add-entry">
+      <form method="POST" action="{{ url_for('add_entry') }}">
+        <label for="content">How are you feeling today?</label>
+        <textarea id="content" name="content" required placeholder="Write your thoughts, feelings, or anything..."></textarea>
+
+        <label for="mood">Select your mood:</label>
+        <select id="mood" name="mood" aria-label="Mood selector">
+          <option value="">-- Choose a mood --</option>
+          <option value="happy">Happy 😊</option>
+          <option value="neutral">Neutral 😐</option>
+          <option value="sad">Sad 😞</option>
+        </select>
+
+        <button type="submit" aria-label="Add journal entry">Add Entry</button>
+
+
+
+      </form>
+
+
+    </section>
+  </div>
+</body>
+</html>

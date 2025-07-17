@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Feedback</title>
+    <style>
+      body { font-family: sans-serif; padding: 2em; }
+      .box { background: #fef3c7; padding: 1em; border-radius: 10px; }
+    </style>
+</head>
+<body>
+  <div class="box">
+    <h2>📋 Your Feedback for Today</h2>
+    <p>{{ feedback }}</p>
+    <a href="{{ url_for('index') }}">← Back to Journal</a>
+  </div>
+</body>
+</html>
